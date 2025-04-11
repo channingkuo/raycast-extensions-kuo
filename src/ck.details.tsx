@@ -8,7 +8,7 @@ type Props = {
   suggestion: Record<string, string>;
 };
 
-export default function CKDetails({ suggestion }: Props) {
+export function CKDetails({ suggestion }: Props) {
   const [files, setFiles] = useState<Record<string, string>[]>([]);
   const { name, folder } = suggestion;
 
@@ -82,7 +82,6 @@ function FileDetail({ filePath }: { filePath: string }) {
       }).catch(() => {
         setDetail(<List.Item.Detail markdown="读取失败" />);
       });
-
     } else if ([".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"].includes(ext)) {
       const imageMarkdown = `![image](${filePath})`;
       setDetail(<List.Item.Detail markdown={imageMarkdown} />);

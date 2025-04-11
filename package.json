@@ -19,9 +19,30 @@
   ],
   "preferences": [
     {
-      "name": "proxy",
-      "title": "HTTP Proxy URL",
-      "description": "HTTP proxy URL to use for translation requests (e.g. http://proxy.example.com:8080)",
+      "name": "configPath",
+      "title": "Config Path",
+      "description": "Default config path (e.g. ~/.config/ck/config.json)",
+      "type": "textfield",
+      "required": false
+    },
+    {
+      "name": "emacsPath",
+      "title": "Emacs Path",
+      "description": "Emacs path (e.g. /bin/emacs)",
+      "type": "textfield",
+      "required": false
+    },
+    {
+      "name": "emacsAlias",
+      "title": "Emacs Alias",
+      "description": "Emacs Alias (e.g. sk)",
+      "type": "textfield",
+      "required": false
+    },
+    {
+      "name": "cdAlias",
+      "title": "CD Alias",
+      "description": "CD Alias (e.g. ck)",
       "type": "textfield",
       "required": false
     }
