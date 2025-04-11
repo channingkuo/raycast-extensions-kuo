@@ -5,6 +5,7 @@
   "description": "kuo's extension group",
   "icon": "extension-icon.png",
   "author": "ChanningKuo",
+  "owner": "kuochanning",
   "categories": [
     "Developer Tools"
   ],
