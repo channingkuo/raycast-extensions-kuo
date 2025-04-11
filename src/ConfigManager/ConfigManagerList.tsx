@@ -54,7 +54,7 @@ export const ConfigManagerList = () => {
     <List
       actions={
         <ActionPanel>
-          <Action title="Remove all" onAction={() => onRemoveConfigSets()} />
+          <Action title="Remove All" onAction={() => onRemoveConfigSets()} />
         </ActionPanel>
       }
     >
@@ -64,7 +64,7 @@ export const ConfigManagerList = () => {
         actions={
           <ActionPanel>
             <Action.Push
-              title="Add new config set..."
+              title="Add New Config Set…"
               target={
                 <AddConfigForm
                   onAddConfig={async (configSet) => {

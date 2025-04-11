@@ -1,4 +1,5 @@
 import { List, Icon, Action, ActionPanel } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 import { useState, useEffect } from "react";
 import { useSelectedConfigSet, usePreferences } from "./hooks";
 import { CKDetails } from "./ck.details";
@@ -15,7 +16,7 @@ export default function CKList() {
   const [suggestions, setSuggestions] = useState<Record<string, string>[]>([]);
 
   const onSelection = (item: Record<string, string>) => {
-    let fullPath = selectedConfigSet.path ? selectedConfigSet.path : os.homedir();
+    const fullPath = selectedConfigSet.path ? selectedConfigSet.path : os.homedir();
     if (fullPath.endsWith(path.sep)) {
       setQuery(item.path.replace(fullPath, ""));
     } else {
@@ -70,6 +71,9 @@ export default function CKList() {
         });
       setSuggestions(matchedFiles);
     } catch (error) {
+      showFailureToast(error, {
+        title: "Failed to load files",
+      });
       setSuggestions([]);
     }
   }, [selectedConfigSet.path, query]);
@@ -90,10 +94,22 @@ export default function CKList() {
           icon={suggestion.folder === "1" ? Icon.Folder : Icon.Document}
           title={suggestion.name}
           subtitle={suggestion.path}
+          quickLook={{
+            path: suggestion.path,
+            name: suggestion.name,
+          }}
           actions={
             <ActionPanel>
-              <Action title="Open in Emacs" icon={Icon.Terminal} onAction={() => openInEmacs(suggestion, preferences)} />
-              <Action title="Locate in Terminal" icon={Icon.Terminal} onAction={() => locateInTerminal(suggestion, preferences)} />
+              <Action
+                title="Open in Emacs"
+                icon={Icon.Terminal}
+                onAction={() => openInEmacs(suggestion, preferences)}
+              />
+              <Action
+                title="Locate in Terminal"
+                icon={Icon.Terminal}
+                onAction={() => locateInTerminal(suggestion, preferences)}
+              />
               <Action.Push
                 title="Show Details"
                 icon={Icon.Eye}

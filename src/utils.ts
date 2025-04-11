@@ -1,9 +1,8 @@
-import { Toast } from "@raycast/api";
-import { showToast, closeMainWindow } from "@raycast/api";
+import { Toast, showToast, closeMainWindow } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 import { ConfigSet, Preferences } from "./types";
 import { setTimeout } from "timers/promises";
 import { exec } from "child_process";
-import { usePreferences } from "./hooks";
 import fs from "fs";
 import path from "path";
 
@@ -17,7 +16,7 @@ export const loadLocalConfig = async (configPath?: string) => {
     const content = await fs.promises.readFile(configPath, "utf-8");
     return JSON.parse(content) as ConfigSet[];
   } catch (error) {
-    showToast({ title: "Error", message: "Failed to read config file" });
+    showFailureToast(error, { title: "Failed to read config file" });
     return localConfigSet;
   }
 };
@@ -32,7 +31,7 @@ export const saveLocalConfig = async (configSets: ConfigSet[], configPath?: stri
     await fs.promises.writeFile(configPath, content, "utf-8");
     showToast({ title: "Success", message: "Config file saved successfully" });
   } catch (error) {
-    showToast({ title: "Error", message: "Failed to save config file" });
+    showFailureToast(error, { title: "Failed to save config file" });
   }
 };
 

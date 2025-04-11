@@ -1,4 +1,5 @@
 import { ActionPanel, List, Icon, Action } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 import React from "react";
 import { useState, useEffect } from "react";
 import fs from "fs";
@@ -45,6 +46,9 @@ export function CKDetails({ suggestion }: Props) {
         ]);
       }
     } catch (error) {
+      showFailureToast(error, {
+        title: "Failed to load files",
+      });
       setFiles([]);
     }
   }, [path]);
@@ -77,23 +81,26 @@ function FileDetail({ filePath }: { filePath: string }) {
     console.log("File path:", filePath);
 
     if ([".txt", ".md", ".js", ".ts", ".jsx", ".tsx", ".json", ".log", ".html", ".css"].includes(ext)) {
-      fs.promises.readFile(filePath, "utf-8").then((content) => {
-        setDetail(<List.Item.Detail markdown={`\`\`\`\n${content}\n\`\`\``} />);
-      }).catch(() => {
-        setDetail(<List.Item.Detail markdown="读取失败" />);
-      });
+      fs.promises
+        .readFile(filePath, "utf-8")
+        .then((content) => {
+          setDetail(<List.Item.Detail markdown={`\`\`\`\n${content}\n\`\`\``} />);
+        })
+        .catch(() => {
+          setDetail(<List.Item.Detail markdown="读取失败" />);
+        });
     } else if ([".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"].includes(ext)) {
       const imageMarkdown = `![image](${filePath})`;
       setDetail(<List.Item.Detail markdown={imageMarkdown} />);
     } else {
       // 其他类型文件：展示图标或提示
-      const icon = {
-        tooltip: "Unsupported File",
-        source: {
-          light: "path/to/icon-light.png", // 替换为你自己打包的 icon 路径
-          dark: "path/to/icon-dark.png",
-        },
-      };
+      // const icon = {
+      //   tooltip: "Unsupported File",
+      //   source: {
+      //     light: "path/to/icon-light.png", // 替换为你自己打包的 icon 路径
+      //     dark: "path/to/icon-dark.png",
+      //   },
+      // };
       setDetail(<List.Item.Detail markdown="无法预览此文件类型" />);
     }
   }, [filePath]);

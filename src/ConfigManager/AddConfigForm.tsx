@@ -2,13 +2,12 @@ import { Action, ActionPanel, Toast, Form, showToast } from "@raycast/api";
 import { ConfigSet } from "../types";
 
 export const AddConfigForm = ({ onAddConfig }: { onAddConfig: (data: ConfigSet) => void }) => {
-
   return (
     <Form
       actions={
         <ActionPanel>
           <Action.SubmitForm
-            title="Add Config set"
+            title="Add Config Set"
             onSubmit={(values: ConfigSet) => {
               if (!values.key) {
                 showToast({
@@ -36,7 +35,13 @@ export const AddConfigForm = ({ onAddConfig }: { onAddConfig: (data: ConfigSet) 
       }
     >
       <Form.TextField id="key" autoFocus title="Key" />
-      <Form.FilePicker id="path" title="Path" allowMultipleSelection={false} canChooseDirectories canChooseFiles={false} />
+      <Form.FilePicker
+        id="path"
+        title="Path"
+        allowMultipleSelection={false}
+        canChooseDirectories
+        canChooseFiles={false}
+      />
     </Form>
   );
 };
