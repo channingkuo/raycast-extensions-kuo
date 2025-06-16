@@ -13,7 +13,7 @@
   "commands": [
     {
       "name": "ck",
-      "title": "CK",
+      "title": "Ck",
       "description": "Alias to cd and auto init the workspace",
       "mode": "view"
     }
