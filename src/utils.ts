@@ -46,16 +46,16 @@ export const openInEmacs = async (item: Record<string, string>, preferences: Pre
           osascript -e 'tell application "Terminal"
             if not running then
               activate
-              delay 0.2
+              delay 3
               set newWindow to front window
             else
               activate
               set newWindow to (do script "${cdAlias ? cdAlias : "cd"} \\"${item.path}\\" && ${emacsPath ? emacsPath + " -nw" : emacsAlias ? emacsAlias : "emacs -nw"} .")
             end if
-            set number of columns of newWindow to 150
-            set number of rows of newWindow to 46
           end tell'
         `;
+        // set number of columns of newWindow to 150
+        // set number of rows of newWindow to 46
       exec(command);
     } else {
       const command = `
@@ -87,7 +87,7 @@ export const locateInTerminal = async (item: Record<string, string>, preferences
               osascript -e 'tell application "Terminal"
                 if not running then
                   activate
-                  delay 0.2
+                  delay 3
                   set newWindow to front window
                 else
                   activate
