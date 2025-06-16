@@ -54,8 +54,6 @@ export const openInEmacs = async (item: Record<string, string>, preferences: Pre
             end if
           end tell'
         `;
-        // set number of columns of newWindow to 150
-        // set number of rows of newWindow to 46
       exec(command);
     } else {
       const command = `
